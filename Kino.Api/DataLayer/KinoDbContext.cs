@@ -3,13 +3,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Kino.Api.DataLayer
 {
-    public class KinoDbContext:DbContext
+    public class KinoDbContext: DbContext
     {
-        public KinoDbContext(DbContextOptions<KinoDbContext> option)
-            : base(option) { }
+        public KinoDbContext( DbContextOptions<KinoDbContext> options)
+            : base(options) 
+        { 
+        
+        }
 
 
-        DbSet<Movies> Moviess { get; set; }
-        DbSet<Author> Authors { get; set; }
+        public DbSet<Movies> Moviess { get; set; }
+        public DbSet<Author> Authors { get; set; }
     }
 }

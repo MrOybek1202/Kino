@@ -9,7 +9,7 @@ namespace Kino.Api.Model
         public string? Title { get; set; }
         public string? Discreption { get; set; }
         public string? Image { get; set; }
-        public virtual Author Authors { get; set; }
+        public virtual Author? Authors { get; set; }
 
     }
 }
