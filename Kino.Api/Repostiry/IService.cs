@@ -5,7 +5,8 @@ namespace Kino.Api.Repostiry
 {
     public interface IService
     {
-        Task<Movies> GetImageAsync(int movieId);
+        Task<bool> DelateMovieAsync(int movieId);
+        //Task<File> GetImageAsync(int movieId);
         Task<Movies> SetImageAsync(int movieId, IFormFile file);
         Task<Movies> AddMoviesAsync(Movies movies);
         Task<IEnumerable<Movies>> GetAllMoviesAsync();

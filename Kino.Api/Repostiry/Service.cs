@@ -1,6 +1,8 @@
 ﻿using Kino.Api.DataLayer;
 using Kino.Api.Model;
 using LinqToDB;
+using Microsoft.Win32;
+using System.IO;
 
 namespace Kino.Api.Repostiry
 {
@@ -57,17 +59,31 @@ namespace Kino.Api.Repostiry
 
             
         }
-
-        public async Task<Movies> GetImageAsync(int movieId)
+        public async Task<bool> DelateMovieAsync(int movieId)
         {
-            var movie = await _kinoDb.Moviess.FirstOrDefaultAsync(p => p.Id == movieId);
+            var res = await _kinoDb.Moviess.FirstOrDefaultAsync(p => p.Id == movieId);
+            if (res == null)
+            {
+                return false;
 
-            string path = Path.Combine(_web.WebRootPath, movie.Image);
-
-            byte[] file = await System.IO.File.ReadAllBytesAsync(path);
-
-            var fis = (file, "octet/stream", Path.GetFileName(path));
-            return fis;
+            }
+            _kinoDb.Moviess.Remove(res);
+            _kinoDb.SaveChanges();
+            return true;
         }
+
+        
+
+        //public async Task<File> GetImageAsync(int movieId)
+        //{
+        //    var movie = await _kinoDb.Moviess.FirstOrDefaultAsync(p => p.Id == movieId);
+
+        //    string path = Path.Combine(_web.WebRootPath, movie.Image);
+
+        //    byte[] file = await File.ReadAllBytesAsync(path);
+
+        //    return await File(file, "octet/stream", Path.GetFileName(path));
+
+        //}
     }
 }

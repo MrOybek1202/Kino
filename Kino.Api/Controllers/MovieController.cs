@@ -38,13 +38,27 @@ namespace Kino.Api.Controllers
             return Ok(res);
 
         }
-        [HttpGet]
-        public async Task<IActionResult> GetImage(int id)
+        [HttpDelete]
+        public async Task<IActionResult> MoviyDalate(int id)
         {
-            var res = await _service.GetImageAsync(id);
+            bool res = await _service.DelateMovieAsync(id);
+            if (res == false)
+            {
+                return NotFound();
+
+            }
             return Ok(res);
         }
 
 
-    }
+
+            //[HttpGet]
+            //public async Task<IActionResult> GetImage(int id)
+            //{
+            //    var res = await _service.GetImageAsync(id);
+            //    return Ok(res);
+            //}
+
+
+        }
 }
