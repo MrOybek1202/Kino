@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Kino.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class MovieMigration : Migration
+    public partial class KinoAndAccountMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,6 +26,22 @@ namespace Kino.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FirsName = table.Column<string>(type: "text", nullable: true),
+                    LastName = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true),
+                    Password = table.Column<string>(type: "character varying(15)", maxLength: 15, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Moviess",
                 columns: table => new
                 {
@@ -34,7 +50,7 @@ namespace Kino.Api.Migrations
                     Title = table.Column<string>(type: "text", nullable: true),
                     Discreption = table.Column<string>(type: "text", nullable: true),
                     Image = table.Column<string>(type: "text", nullable: true),
-                    AuthorsId = table.Column<int>(type: "integer", nullable: false)
+                    AuthorsId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -43,8 +59,7 @@ namespace Kino.Api.Migrations
                         name: "FK_Moviess_Authors_AuthorsId",
                         column: x => x.AuthorsId,
                         principalTable: "Authors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -58,6 +73,9 @@ namespace Kino.Api.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Moviess");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Authors");

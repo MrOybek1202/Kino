@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Kino.Api.Migrations
 {
     [DbContext(typeof(KinoDbContext))]
-    [Migration("20231017141525_ConnectionMigration")]
-    partial class ConnectionMigration
+    [Migration("20231017153104_KinoAndAccountMigration")]
+    partial class KinoAndAccountMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,6 +69,33 @@ namespace Kino.Api.Migrations
                     b.HasIndex("AuthorsId");
 
                     b.ToTable("Moviess");
+                });
+
+            modelBuilder.Entity("Kino.Api.Model.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FirsName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("character varying(15)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Kino.Api.Model.Movies", b =>
