@@ -11,9 +11,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IService, Service>();
+builder.Services.AddScoped<IAccount, Account>();
 
 builder.Services.AddDbContext<KinoDbContext>(option =>
                               option.UseNpgsql(builder.Configuration.GetConnectionString("KinoConnectionString")));
+
 
 var app = builder.Build();
 
